@@ -4,12 +4,14 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import { Alert } from "@mui/material";
 import { margin } from "@mui/system";
+import './Register.css'
 
 /// File is incomplete. You need to add input boxes to take input for users to register.
 function Register() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [registrationFlag,setRegistration] = React.useState("");
+    const [selectedRole, setSelectedRole] = React.useState('admin');
 
 
 
@@ -20,26 +22,53 @@ function Register() {
         setPassword(event.target.value);
     }
 
+     const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value);
+  };
+
+
 
     const registerAdmin = () =>{
-        fetch("http://localhost:3000/admin/signup",{
-            method:"POST",
-            body:JSON.stringify({
-                username:email,
-                password:password
-            }),
-            headers:{
-                "Content-Type": "application/json"
-            }
-        }).then((res=>{
-            res.json().then(data=>{
-                console.log(data);
-                localStorage.setItem("token",data.token);
-                setRegistration("true");
-                setEmail("");
-                setPassword("")
-            })
-        }))
+        if(selectedRole==="admin"){
+            fetch("http://localhost:3000/admin/signup",{
+                method:"POST",
+                body:JSON.stringify({
+                    username:email,
+                    password:password
+                }),
+                headers:{
+                    "Content-Type": "application/json"
+                }
+            }).then((res=>{
+                res.json().then(data=>{
+                    console.log(data);
+                    localStorage.setItem("token",data.token);
+                    setRegistration("true");
+                    setEmail("");
+                    setPassword("")
+                })
+            }))
+        }else{
+            fetch("http://localhost:3000/users/signup",{
+                method:"POST",
+                body:JSON.stringify({
+                    username:email,
+                    password:password
+                }),
+                headers:{
+                    "Content-Type": "application/json"
+                }
+            }).then((res=>{
+                res.json().then(data=>{
+                    console.log(data);
+                    localStorage.setItem("token",data.token);
+                    setRegistration("true");
+                    setEmail("");
+                    setPassword("")
+                })
+            }))
+        }
+   
     }
 
     return <div>
@@ -61,6 +90,13 @@ function Register() {
     
     
     }}>
+          <div className="container">
+      <label htmlFor="user-role">Select Role:</label>
+      <select id="user-role" value={selectedRole} onChange={handleRoleChange}>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+    </div>
         <Card variant="outlined" style={{
             width:"500px",
             padding:"20px",

@@ -4,11 +4,13 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import AppBar from "./AppBar";
 import { Typography } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 /// File is incomplete. You need to add input boxes to take input for users to login.
 function Login() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-
+    
+    const navigate = useNavigate();
 
 
     const handleEmailChange = (event) =>{
@@ -33,6 +35,8 @@ function Login() {
             res.json().then(data=>{
                 console.log(data);
                 localStorage.setItem("token",data.token)
+                navigate('/courses')
+
             })
         }))
     }
@@ -96,8 +100,8 @@ function Login() {
             margin:"10px"
         }}>
     
-        <Button fullWidth={true} variant="contained" onClick={signInAdmin}>SIGN IN</Button> 
-
+        <Button fullWidth={true} variant="contained" onClick={signInAdmin}>SIGN IN
+        </Button> 
         </div>
        
         
