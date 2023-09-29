@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { Alert } from "@mui/material";
 import { margin } from "@mui/system";
 import './Register.css'
-
+import axios from 'axios'
 /// File is incomplete. You need to add input boxes to take input for users to register.
 function Register() {
     const [email, setEmail] = React.useState("");
@@ -28,45 +28,68 @@ function Register() {
 
 
 
-    const registerAdmin = () =>{
+    const registerAdmin = async () =>{
         if(selectedRole==="admin"){
-            fetch("http://localhost:3000/admin/signup",{
-                method:"POST",
-                body:JSON.stringify({
-                    username:email,
-                    password:password
-                }),
-                headers:{
-                    "Content-Type": "application/json"
-                }
-            }).then((res=>{
-                res.json().then(data=>{
-                    console.log(data);
-                    localStorage.setItem("token",data.token);
-                    setRegistration("true");
-                    setEmail("");
-                    setPassword("")
-                })
-            }))
+            // fetch("http://localhost:3000/admin/signup",{
+            //     method:"POST",
+            //     body:JSON.stringify({
+            //         username:email,
+            //         password:password
+            //     }),
+            //     headers:{
+            //         "Content-Type": "application/json"
+            //     }
+            // }).then((res=>{
+            //     res.json().then(data=>{
+            //         console.log(data);
+            //         localStorage.setItem("token",data.token);
+            //         setRegistration("true");
+            //         setEmail("");
+            //         setPassword("")
+            //     })
+            // }))
+
+
+            const response = await axios.post("http://localhost:3000/admin/signup",{
+                username:email,
+                password:password
+            })
+
+            let data = response.data;
+            localStorage.setItem("token",data.token);
+            setRegistration("true");
+            setEmail("");
+            setPassword("")
+
+
         }else{
-            fetch("http://localhost:3000/users/signup",{
-                method:"POST",
-                body:JSON.stringify({
-                    username:email,
-                    password:password
-                }),
-                headers:{
-                    "Content-Type": "application/json"
-                }
-            }).then((res=>{
-                res.json().then(data=>{
-                    console.log(data);
-                    localStorage.setItem("token",data.token);
-                    setRegistration("true");
-                    setEmail("");
-                    setPassword("")
-                })
-            }))
+            // fetch("http://localhost:3000/users/signup",{
+            //     method:"POST",
+            //     body:JSON.stringify({
+            //         username:email,
+            //         password:password
+            //     }),
+            //     headers:{
+            //         "Content-Type": "application/json"
+            //     }
+            // }).then((res=>{
+            //     res.json().then(data=>{
+            //         console.log(data);
+            //         localStorage.setItem("token",data.token);
+            //         setRegistration("true");
+            //         setEmail("");
+            //         setPassword("")
+            //     })
+            // }))
+            const response = await axios.post("http://localhost:3000/users/signup",{
+                username:email,
+                password:password
+            })
+            let data = response.data;
+            localStorage.setItem("token",data.token);
+            setRegistration("true");
+            setEmail("");
+            setPassword("")
         }
    
     }

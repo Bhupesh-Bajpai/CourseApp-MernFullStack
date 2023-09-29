@@ -11,7 +11,7 @@ app.use(cors())
 
 // connect with user routes
 app.use("/admin",adminRouter);
-app.use('/user',userRouter)
+app.use('/users',userRouter)
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://bajpaibhupesh25:Bhupesh2502@cluster0.rrzvaih.mongodb.net/courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
