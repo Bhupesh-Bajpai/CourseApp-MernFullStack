@@ -22,7 +22,7 @@ This is a full-stack course app built with React, Express, Material UI, and Mong
 
 ## AWS EC2 Testing
 
-For knowledge enhancement, this project has been tested on an AWS EC2 instance. While the primary development environment is local, testing on AWS EC2 provides valuable insights into deploying and running the Express server in a cloud environment. However, this project does not cover a full AWS deployment guide.
+For knowledge enhancement, this project has been tested on an AWS EC2 instance. While the primary development environment is local, testing on AWS EC2 provides valuable insights into deploying and running the Express server in a cloud environment.
 
 Feel free to adapt and deploy this project to AWS as needed for your specific use case.
 
